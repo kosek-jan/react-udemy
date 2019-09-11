@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -7,6 +8,7 @@ class App extends Component {
         people: [
             { id: "asdf1", name: "Lulec", age: 69 },
             { id: "asdf2", name: "Pulec", age: 13 },
+            { id: "asdf3", name: "Sulec", age: 25 },
         ],
         showPeople: false
     }
@@ -34,11 +36,16 @@ class App extends Component {
 
     render() {
         const style = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
             cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
 
         let people = null;
@@ -57,18 +64,35 @@ class App extends Component {
                     })}
                 </div>
             );
+
+            style.backgroundColor = 'red';
+            style[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black'
+            }
+        }
+
+        const classes = [];
+        if (this.state.people.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.people.length <= 1) {
+            classes.push('bold');
         }
 
         return (
-            <div className="App">
-                <h1>sup</h1>
-                <button 
-                    style={style}
-                    onClick={this.togglePeopleHandler}>Toggle people</button>
-                {people}
-            </div>
+            <StyleRoot>
+                <div className="App">
+                    <h1>sup</h1>
+                    <p className={classes.join(' ')}>This is something!</p>
+                    <button 
+                        style={style}
+                        onClick={this.togglePeopleHandler}>Toggle people</button>
+                    {people}
+                </div>
+            </StyleRoot>
         );  
     }
 }
 
-export default App;
+export default Radium(App);
