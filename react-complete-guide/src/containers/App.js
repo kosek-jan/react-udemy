@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
-import Person from './Person/Person';
+import People from '../components/People/People';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
     state = {
@@ -35,40 +36,21 @@ class App extends Component {
 
     render() {
         let people = null;
-        let btnClass = '';
 
         if (this.state.showPeople) {
-            people = (
-                <div>
-                    {this.state.people.map((person, index) => {
-                        return <Person 
-                            name={person.name} 
-                            age={person.age}
-                            clickHandler={() => this.deletePersonHandler(index)}
-                            key={person.id}
-                            changeHandler={(event) => this.nameChangedHandler(event, person.id)}
-                        />   
-                    })}
-                </div>
-            );
-            btnClass = classes.Red;
-        }
-
-        const assignedClasses = [];
-        if (this.state.people.length <= 2) {
-            assignedClasses.push( classes.red );
-        }
-        if (this.state.people.length <= 1) {
-            assignedClasses.push( classes.bold );
+            people = <People 
+                        people={this.state.people}
+                        clickHandler={this.deletePersonHandler}
+                        changeHandler={this.nameChangedHandler}
+                    ></People>;   
         }
 
         return (
             <div className={classes.App}>
-                <h1>sup</h1>
-                <p className={assignedClasses.join(' ')}>This is something!</p>
-                <button 
-                    className={btnClass}
-                    onClick={this.togglePeopleHandler}>Toggle people</button>
+                <Cockpit 
+                    showPeople={this.state.showPeople} 
+                    people={this.state.people}
+                    clickedHandler={this.togglePeopleHandler}></Cockpit>
                 {people}
             </div>
         );  
