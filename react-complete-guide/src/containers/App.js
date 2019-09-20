@@ -13,6 +13,7 @@ class App extends Component {
         ],
         showPeople: false,
         showCocpit: true,
+        changeCounter: 0,
     }
 
     componentDidMount() {
@@ -42,7 +43,12 @@ class App extends Component {
         person.name = event.target.value;
         const people = [...this.state.people];
         people[personIndex] = person;
-        this.setState({people: people});
+        this.setState((prevState, props) => {
+            return {
+                people: people, 
+                changeCounter: prevState.changeCounter + 1
+            }
+        });
     }
 
     togglePeopleHandler = () => {
