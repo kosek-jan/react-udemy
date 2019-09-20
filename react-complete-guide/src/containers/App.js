@@ -14,6 +14,7 @@ class App extends Component {
         showPeople: false,
         showCocpit: true,
         changeCounter: 0,
+        authenticated: false,
     }
 
     componentDidMount() {
@@ -55,6 +56,10 @@ class App extends Component {
         this.setState({showPeople: !this.state.showPeople});
     }
 
+    loginHandler = () => {
+        this.setState({authenticated: true});
+    }
+
     render() {
         let people = null;
 
@@ -74,7 +79,9 @@ class App extends Component {
                         title={this.props.appTitle}
                         showPeople={this.state.showPeople} 
                         peopleLength={this.state.people.length}
-                        clickedHandler={this.togglePeopleHandler}>
+                        clickedHandler={this.togglePeopleHandler}
+                        login={this.loginHandler}
+                        >
                     </Cockpit>
                 : null}
                 {people}

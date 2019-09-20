@@ -1,19 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.module.css';
 
 const cockpit = (props) => {
+    const toggleBtnRef = useRef(null);
+    
     useEffect(() => {
         // executes for every render cycle
         console.log('cockpit.js - useEffect');
+        toggleBtnRef.current.click();
         // Http req.. 
-        const timer = setTimeout(() => {
-            alert('Save data to cloud!');
-        }, 1000);
+        // const timer = setTimeout(() => {
+        //     alert('Save data to cloud!');
+        // }, 1000);
         return () => {
-            clearTimeout(timer);
+            // clearTimeout(timer);
             console.log('Cocpit cleanup');
         }   
-    }, [props.peopleLength]); // runs only when people changes, [] will act like componentDidMount/unmount
+    }, []); // runs only when people changes, [] will act like componentDidMount/unmount
     
     useEffect(() => {
         console.log('cockpit.js - useEffect #2');
@@ -40,8 +43,10 @@ const cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is something!</p>
             <button 
+                ref={toggleBtnRef}
                 className={btnClass}
                 onClick={props.clickedHandler}>Toggle people</button>
+            <button onClick={props.login}>Log in</button>
         </div>
     );
 };
