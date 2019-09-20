@@ -3,6 +3,7 @@ import classes from './App.module.css';
 import People from '../components/People/People';
 import Cockpit from '../components/Cockpit/Cockpit';
 import WithClass from '../hoc/WithClass';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
     state = {
@@ -74,17 +75,22 @@ class App extends Component {
         return (
             <WithClass classes={classes.App}>
                 <button onClick={() => this.setState({showCocpit: false})}>hide Cockpit</button>
-                {this.state.showCocpit ? 
-                    <Cockpit 
-                        title={this.props.appTitle}
-                        showPeople={this.state.showPeople} 
-                        peopleLength={this.state.people.length}
-                        clickedHandler={this.togglePeopleHandler}
-                        login={this.loginHandler}
-                        >
-                    </Cockpit>
-                : null}
-                {people}
+                <AuthContext.Provider 
+                    value={{
+                        authenticated: this.state.authenticated, 
+                        login: this.loginHandler
+                    }}>
+                    {this.state.showCocpit ? 
+                        <Cockpit 
+                            title={this.props.appTitle}
+                            showPeople={this.state.showPeople} 
+                            peopleLength={this.state.people.length}
+                            clickedHandler={this.togglePeopleHandler}
+                            >
+                        </Cockpit>
+                    : null}
+                    {people}
+                </AuthContext.Provider>
             </WithClass>
         );  
     }
