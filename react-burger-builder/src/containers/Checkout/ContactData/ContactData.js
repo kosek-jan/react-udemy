@@ -4,6 +4,7 @@ import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import styles from './ContactData.module.css';
 import axios from '../../../axios-orders';
+import Input from '../../../components/UI/Input/Input'
 
 class ContactData extends Component {
     state = {
@@ -21,7 +22,7 @@ class ContactData extends Component {
         this.setState({loading: true});
         const order = {
             ingredients: this.props.ingredients,
-            price: this.props.totalPrice,
+            price: this.props.price,
             customer: {
                 name: 'smasha',
                 address: {
@@ -44,10 +45,10 @@ class ContactData extends Component {
     render() {
         let form = (
             <form>
-                <input className={styles.Input} type="text" name="name" placeholder="Your name"></input>
-                <input className={styles.Input} type="text" name="email" placeholder="Your email"></input>
-                <input className={styles.Input} type="text" name="street" placeholder="Street"></input>
-                <input className={styles.Input} type="text" name="postal" placeholder="Postal Code"></input>
+                <Input inputtype="input" type="text" name="name" placeholder="Your name"></Input>
+                <Input inputtype="input" type="text" name="email" placeholder="Your email"></Input>
+                <Input inputtype="input" type="text" name="street" placeholder="Street"></Input>
+                <Input inputtype="input" type="text" name="postal" placeholder="Postal Code"></Input>
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         );
