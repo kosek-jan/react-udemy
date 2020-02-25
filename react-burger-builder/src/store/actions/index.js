@@ -5,5 +5,10 @@ export {
 } from './burderBuilder';
 export {
     purchaseBurger,
-    purchaseInit
+    purchaseInit,
+    fetchOrders
 } from './order'
+export {
+    auth,
+    logout
+} from './auth'
